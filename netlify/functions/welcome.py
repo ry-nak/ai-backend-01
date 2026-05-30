@@ -1,7 +1,6 @@
 import json
 
 def handler(event, context):
-    # Read query parameters safely
     query_params = event.get("queryStringParameters") or {}
     name = query_params.get("name", "Guest")
     
@@ -17,8 +16,3 @@ def handler(event, context):
         },
         "body": json.dumps(response_body)
     }
-
-# Explicitly maps this serverless function to the root URL
-config = {
-    "path": "/"
-}
