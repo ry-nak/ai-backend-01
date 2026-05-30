@@ -1,29 +1,16 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
-# root_path is CRITICAL for Netlify functions to match routes correctly
-app = FastAPI(root_path="/.netlify/functions/welcome")
+app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+# This handles the root of the function
 @app.get("/")
-def read_root(name: str = "Guest"):
-    return {
-        "status": "success",
-        "message": f"Welcome, {name}! Your FastAPI app is running on Netlify Functions.",
-        "docs": "/docs"
-    }
+def read_root():
+    return {"message": "Hello World"}
 
-@app.get("/hello")
-def say_hello():
-    return {"message": "Hello from a sub-route!"}
+# This handles the specific name Netlify uses
+@app.get("/welcome")
+def read_welcome():
+    return {"message": "Hello from Welcome"}
 
-# This is the handler Netlify looks for
 handler = Mangum(app)
