@@ -2,9 +2,8 @@
   publish = "."
   functions = "netlify/functions"
 
-# Redirect the root URL straight to the FastAPI app function
 [[redirects]]
-  from = "/"
+  from = "/*"
   to = "/.netlify/functions/welcome"
   status = 200
   force = true
