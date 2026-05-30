@@ -1,6 +1,7 @@
 import json
 
 def handler(event, context):
+    # Safe fallback if query parameters are missing
     query_params = event.get("queryStringParameters") or {}
     name = query_params.get("name", "Guest")
     
