@@ -1,8 +1,8 @@
 [build]
-  publish = "public"
+  publish = "."
   functions = "netlify/functions"
 
-# This forces the root URL (/) to hit your Python function
+# Force the root URL to invisibly call your Python function
 [[redirects]]
   from = "/"
   to = "/.netlify/functions/welcome"
