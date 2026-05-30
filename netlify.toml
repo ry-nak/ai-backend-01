@@ -1,2 +1,9 @@
 [build]
   functions = "netlify/functions"
+
+# Redirects the root URL (/) to the Python serverless function
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/welcome"
+  status = 200
+  force = true
