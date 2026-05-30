@@ -1,17 +1,21 @@
 import json
 
-
 def handler(event, context):
-    # Get the name from the URL query parameters (e.g., ?name=Alex)
-    query_params = event.get("queryStringParameters", {})
+    # Safe check for query parameters (e.g., /?name=Alex)
+    query_params = event.get("queryStringParameters") or {}
     name = query_params.get("name", "Guest")
-
-    # Build the welcome message
-    message = f"Welcome, {name}! Great to have you here."
-
-    # Netlify functions must return a status code and a body
+    
+    # Construct the response dictionary
+    response_body = {
+        "message": f"Welcome, {name}! Great to have you here."
+    }
+    
+    # Netlify requires this specific return structure
     return {
         "statusCode": 200,
-        "headers": {"Content-Type": "application/json"},
-        "body": json.dumps({"message": message}),
+        "headers": {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"  # Allows frontend apps to fetch this API safely
+        },
+        "body": json.dumps(response_body)
     }
